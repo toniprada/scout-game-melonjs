@@ -101,14 +101,14 @@ game.LightEntity = me.ObjectEntity.extend({
     update the player pos
  
     ------ */
-    update: function() {
-		if (game.PlayerEntity) {
-			console.log(game.PlayerEntity);
-			this.x = game.PlayerEntity.x;
-			this.y = game.PlayerEntity.y;
-		}
-		this.updateMovement();
-        return true;
-    }
+    update: function() {
+        if (game.PlayerEntity) {
+            var mainPlayerPosition = me.game.getEntityByName("mainPlayer")[0].pos;
+            this.pos.x = mainPlayerPosition.x;
+            this.pos.y = mainPlayerPosition.y;
+        }
+        this.updateMovement();
+        return true;
+    }
  
 });// TODO
