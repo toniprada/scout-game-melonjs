@@ -102,13 +102,20 @@ game.LightEntity = me.ObjectEntity.extend({
  
     ------ */
     update: function() {
-		if (game.PlayerEntity) {
-			console.log(game.PlayerEntity);
-			this.x = game.PlayerEntity.x;
-			this.y = game.PlayerEntity.y;
-		}
-		this.updateMovement();
-        return true;
-    }
+
+		if (me.input.isKeyPressed('left')) {
+            this.flipX(true);
+        } else if (me.input.isKeyPressed('right')) {
+            this.flipX(false);
+        } 
+ 		if (game.PlayerEntity) {
+            var mainPlayerPosition = me.game.getEntityByName("mainPlayer")[0].pos;
+            this.pos.x = mainPlayerPosition.x + 30;
+            this.pos.y = mainPlayerPosition.y - 10;
+            this.gravity = 0;
+        }
+        this.updateMovement();
+        return true;   
+     }
  
 });// TODO

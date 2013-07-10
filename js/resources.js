@@ -32,7 +32,8 @@ game.resources = [
     // our level tileset
     {name: "area01_level_tiles", type:"image", src: "data/img/map/area01_level_tiles.png"},
     // the main player spritesheet
-    {name: "gripe_run_right", type:"image", src: "data/img/sprite/gripe_run_right.png"},
+    {name: "boyscout_day", type:"image", src: "data/img/sprite/boyscout_day.png"},
+    {name: "boyscout_night", type:"image", src: "data/img/sprite/boyscout_night.png"},
     {name: "light_mask", type:"image", src: "data/img/sprite/light_mask.png"},
 
     // the parallax background
