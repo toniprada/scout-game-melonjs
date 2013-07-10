@@ -101,6 +101,7 @@ game.LightEntity = me.ObjectEntity.extend({
     update the player pos
  
     ------ */
+<<<<<<< HEAD
     update: function() {
 
 		if (me.input.isKeyPressed('left')) {
@@ -119,3 +120,16 @@ game.LightEntity = me.ObjectEntity.extend({
      }
  
 });// TODO
+=======
+    update: function() {
+        if (game.PlayerEntity) {
+            var mainPlayerPosition = me.game.getEntityByName("mainPlayer")[0].pos;
+            this.pos.x = mainPlayerPosition.x;
+            this.pos.y = mainPlayerPosition.y;
+        }
+        this.updateMovement();
+        return true;
+    }
+ 
+});// TODO
+>>>>>>> e8c2cb7799a0c9e4f094450fc1010f66a39af00a
