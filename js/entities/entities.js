@@ -17,60 +17,84 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    this.setVelocity(3, 15);
 	 
 	    // adjust the bounding box
-	    this.updateColRect(8, 48, -1, 0);
+	    this.updateColRect(8, 40, -1, 0);
 	 
 	    // set the display to follow our position on both axis
 	    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
-
  
     },
  
-    /* -----
+/* -----
+update the player pos
+------ */
+update: function() {
  
-    update the player pos
- 
-    ------ */
-    update: function() {
- 
-        if (me.input.isKeyPressed('left')) {
-            // flip the sprite on horizontal axis
-            this.flipX(true);
-            // update the entity velocity
-            this.vel.x -= this.accel.x * me.timer.tick;
-        } else if (me.input.isKeyPressed('right')) {
-            // unflip the sprite
-            this.flipX(false);
-            // update the entity velocity
-            this.vel.x += this.accel.x * me.timer.tick;
-        } else {
-            this.vel.x = 0;
+    if (me.input.isKeyPressed('left'))
+    {
+        // flip the sprite on horizontal axis
+        this.flipX(true);
+        // update the entity velocity
+        this.vel.x -= this.accel.x * me.timer.tick;
+    }
+    else if (me.input.isKeyPressed('right'))
+    {
+        // unflip the sprite
+        this.flipX(false);
+        // update the entity velocity
+        this.vel.x += this.accel.x * me.timer.tick;
+    }
+    else
+    {
+        this.vel.x = 0;
+    }
+    if (me.input.isKeyPressed('jump'))
+    {   
+        if (!this.jumping && !this.falling) 
+        {
+            // set current vel to the maximum defined value
+            // gravity will then do the rest
+            this.vel.y = -this.maxVel.y * me.timer.tick;
+            // set the jumping flag
+            this.jumping = true;
         }
-        if (me.input.isKeyPressed('jump')) {
-            // make sure we are not already jumping or falling
-            if (!this.jumping && !this.falling) {
-                // set current vel to the maximum defined value
-                // gravity will then do the rest
+    }
+ 
+ 
+    // check & update player movement
+    this.updateMovement();
+ 
+    // check for collision
+    var res = me.game.collide(this);
+ 
+    if (res) {
+        // if we collide with an enemy
+        if (res.obj.type == me.game.ENEMY_OBJECT) {
+            // check if we jumped on it
+            if ((res.y > 0) && ! this.jumping) {
+                // bounce (force jump)
+                this.falling = false;
                 this.vel.y = -this.maxVel.y * me.timer.tick;
                 // set the jumping flag
                 this.jumping = true;
+ 
+            } else {
+                // let's flicker in case we touched an enemy
+                this.renderable.flicker(45);
             }
- 
         }
- 
-        // check & update player movement
-        this.updateMovement();
- 
-        // update animation if necessary
-        if (this.vel.x!=0 || this.vel.y!=0) {
-            // update object animation
-            this.parent();
-            return true;
-        }
-         
-        // else inform the engine we did not perform
-        // any update (e.g. position, animation)
-        return false;
     }
+ 
+    // update animation if necessary
+    if (this.vel.x!=0 || this.vel.y!=0) {
+        // update object animation
+        this.parent();
+        return true;
+    }
+    // else inform the engine we did not perform
+    // any update (e.g. position, animation)
+    return false;       
+ 
+}
  
 });
 
@@ -101,7 +125,6 @@ game.LightEntity = me.ObjectEntity.extend({
     update the player pos
  
     ------ */
-<<<<<<< HEAD
     update: function() {
 
 		if (me.input.isKeyPressed('left')) {
@@ -119,17 +142,79 @@ game.LightEntity = me.ObjectEntity.extend({
         return true;   
      }
  
-});// TODO
-=======
-    update: function() {
-        if (game.PlayerEntity) {
-            var mainPlayerPosition = me.game.getEntityByName("mainPlayer")[0].pos;
-            this.pos.x = mainPlayerPosition.x;
-            this.pos.y = mainPlayerPosition.y;
-        }
-        this.updateMovement();
-        return true;
-    }
+});
+
+
+/* --------------------------
+an enemy Entity
+------------------------ */
+game.EnemyEntity = me.ObjectEntity.extend({
+    init: function(x, y, settings) {
+        // define this here instead of tiled
+       // settings.image = "duck";
+       // settings.spritewidth = 64;
  
-});// TODO
->>>>>>> e8c2cb7799a0c9e4f094450fc1010f66a39af00a
+        // call the parent constructor
+        this.parent(x, y, settings);
+ 
+        this.startX = x;
+        this.endX = x + settings.width - settings.spritewidth;
+        // size of sprite
+ 
+        // make him start from the right
+        this.pos.x = x + settings.width - settings.spritewidth;
+        this.walkLeft = true;
+ 
+        // walking & jumping speed
+        this.setVelocity(2, 2);
+ 
+        // make it collidable
+        this.collidable = true;
+        // make it a enemy object
+        this.type = me.game.ENEMY_OBJECT;
+ 
+    },
+ 
+    // call by the engine when colliding with another object
+    // obj parameter corresponds to the other object (typically the player) touching this one
+    onCollision: function(res, obj) {
+ 
+        // res.y >0 means touched by something on the bottom
+        // which mean at top position for this one
+        if (this.alive && (res.y > 0) && obj.falling) {
+            this.renderable.flicker(45);
+        }
+    },
+ 
+    // manage the enemy movement
+    update: function() {
+        // do nothing if not in viewport
+        if (!this.inViewport)
+            return false;
+ 
+        if (this.alive) {
+            if (this.walkLeft && this.pos.x <= this.startX) {
+                this.walkLeft = false;
+            } else if (!this.walkLeft && this.pos.x >= this.endX) {
+                this.walkLeft = true;
+            }
+            // make it walk
+            this.flipX(this.walkLeft);
+            this.vel.x += (this.walkLeft) ? -this.accel.x * me.timer.tick : this.accel.x * me.timer.tick;
+                 
+        } else {
+            this.vel.x = 0;
+        }
+         
+        // check and update movement
+        this.updateMovement();
+         
+        // update animation if necessary
+        if (this.vel.x!=0 || this.vel.y!=0) {
+            // update object animation
+            this.parent();
+            return true;
+        }
+        return false;
+    }
+});

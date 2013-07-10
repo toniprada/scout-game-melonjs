@@ -35,6 +35,7 @@ game.resources = [
     {name: "boyscout_day", type:"image", src: "data/img/sprite/boyscout_day.png"},
     {name: "boyscout_night", type:"image", src: "data/img/sprite/boyscout_night.png"},
     {name: "light_mask", type:"image", src: "data/img/sprite/light_mask.png"},
+    {name: "duck", type:"image", src: "data/img/sprite/duck.png"},
 
     // the parallax background
     {name: "area01_bkg0",         type:"image", src: "data/img/area01_bkg0.png"},

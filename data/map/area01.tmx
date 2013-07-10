@@ -59,4 +59,12 @@
    </properties>
   </object>
  </objectgroup>
+ <objectgroup name="EnemyEntities" width="20" height="14">
+  <object name="EnemyEntity" type="EnemyEntity" x="397" y="128" width="238" height="34">
+   <properties>
+    <property name="image" value="duck"/>
+    <property name="spritewidth" value="34"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
