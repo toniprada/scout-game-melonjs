@@ -36,6 +36,11 @@ game.resources = [
     {name: "boyscout_night", type:"image", src: "data/img/sprite/boyscout_night.png"},
     {name: "light_mask", type:"image", src: "data/img/sprite/light_mask.png"},
     {name: "duck", type:"image", src: "data/img/sprite/duck.png"},
+    {name: "blood", type:"image", src: "data/img/sprite/blood.png"},
+
+	// sounds
+    {name: "duck", type: "audio", src: "data/sfx/", channel : 1},
+    {name: "child", type: "audio", src: "data/sfx/", channel : 2},
 
     // the parallax background
     {name: "area01_bkg0",         type:"image", src: "data/img/area01_bkg0.png"},

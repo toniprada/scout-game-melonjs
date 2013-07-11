@@ -1,3 +1,7 @@
+var BLOOD_SPLASH_TIME_MS = 3000;
+var lastBloodSplashTimestamp = undefined;
+var showingBlood = false;
+
 /*------------------- 
 a player entity
 -------------------------------- */
@@ -17,17 +21,20 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    this.setVelocity(3, 15);
 	 
 	    // adjust the bounding box
-	    this.updateColRect(8, 40, -1, 0);
+	    this.updateColRect(8, 30, -1, 0);
 	 
 	    // set the display to follow our position on both axis
 	    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
- 
+        this.collidable = true;
+//me.entityPool.add("blood", game.BloodEntity, true);
+
     },
  
 /* -----
 update the player pos
 ------ */
 update: function() {
+
  
     if (me.input.isKeyPressed('left'))
     {
@@ -69,6 +76,8 @@ update: function() {
     if (res) {
         // if we collide with an enemy
         if (res.obj.type == me.game.ENEMY_OBJECT) {
+			console.log("collision with the enemy")
+
             // check if we jumped on it
             if ((res.y > 0) && ! this.jumping) {
                 // bounce (force jump)
@@ -76,14 +85,37 @@ update: function() {
                 this.vel.y = -this.maxVel.y * me.timer.tick;
                 // set the jumping flag
                 this.jumping = true;
- 
+
             } else {
                 // let's flicker in case we touched an enemy
                 this.renderable.flicker(45);
-            }
+            	me.audio.play("child");
+
+				//lastBloodSplashTimestamp = new Date().getTime();
+				//showingBlood = true;
+				//var blood = me.entityPool.newInstanceOf("blood");
+  				//if (blood != undefined) {
+                //	me.game.remove(blood); 
+ 				//}
+					
+            }	                
+				//me.entityPool.add("blood", game.BloodEntity);
+				//lastBloodSplashTimestamp = new Date().getTime();
+				//showingBlood = true;
+                //me.state.change(me.state.PLAY);
+
         }
     }
  
+	//if (showingBlood) {
+	//	var now = new Date().getTime();
+	//	if (now - lastBloodSplashTimestamp > BLOOD_SPLASH_TIME_MS) {
+	//		console.log("Stop showing the blood")
+	//		me.entityPool.freeInstance(game.BloodEntity);
+	//		showingBlood = false;
+	//	}
+	//}
+
     // update animation if necessary
     if (this.vel.x!=0 || this.vel.y!=0) {
         // update object animation
@@ -95,6 +127,7 @@ update: function() {
     return false;       
  
 }
+
  
 });
 
@@ -144,6 +177,46 @@ game.LightEntity = me.ObjectEntity.extend({
  
 });
 
+game.BloodEntity = me.ObjectEntity.extend({
+ 
+    /* -----
+ 
+    constructor
+ 
+    ------ */
+ 
+    init: function(x, y, settings) {
+	    // call the constructor
+    this.parent(x, y, settings);
+	 
+	    // set the walking & jumping speed
+	    this.setVelocity(3, 15);
+	 
+	    // adjust the bounding box
+	    this.updateColRect(-1,0, -1, 0);
+	         this.collidable = false;
+
+	    // set the display to follow our position on both axis
+    },
+ 
+    /* -----
+ 
+    update the player pos
+ 
+    ------ */
+    update: function() {
+ 		if (game.PlayerEntity) {
+            var mainPlayerPosition = me.game.getEntityByName("mainPlayer")[0].pos;
+            this.pos.x = mainPlayerPosition.x + 30;
+            this.pos.y = mainPlayerPosition.y - 70;
+            this.gravity = 0;
+        }
+        this.updateMovement();
+        return true;   
+     }
+ 
+});
+
 
 /* --------------------------
 an enemy Entity
@@ -156,7 +229,8 @@ game.EnemyEntity = me.ObjectEntity.extend({
  
         // call the parent constructor
         this.parent(x, y, settings);
- 
+	    this.updateColRect(-1, 20, -1, 0);
+
         this.startX = x;
         this.endX = x + settings.width - settings.spritewidth;
         // size of sprite
@@ -178,12 +252,13 @@ game.EnemyEntity = me.ObjectEntity.extend({
     // call by the engine when colliding with another object
     // obj parameter corresponds to the other object (typically the player) touching this one
     onCollision: function(res, obj) {
- 
+        console.log("collision");
         // res.y >0 means touched by something on the bottom
         // which mean at top position for this one
-        if (this.alive && (res.y > 0) && obj.falling) {
-            this.renderable.flicker(45);
-        }
+ 		if (this.alive && (res.y > 0) && obj.falling) {
+            this.renderable.flicker(45);
+            me.audio.play("duck");
+        }
     },
  
     // manage the enemy movement
