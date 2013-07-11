@@ -41,6 +41,8 @@ game.resources = [
     {name: "area01_bkg0",         type:"image", src: "data/img/area01_bkg0.png"},
     {name: "area01_bkg1",         type:"image", src: "data/img/area01_bkg1.png"},
 
+    {name: "blood",         type:"image", src: "data/img/blood.png"},
+
     /*
      * Maps.
      */

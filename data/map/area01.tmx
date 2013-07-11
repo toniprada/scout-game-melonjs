@@ -66,5 +66,10 @@
     <property name="spritewidth" value="34"/>
    </properties>
   </object>
+  <object name="BloodEntity" x="132" y="151" width="54" height="52">
+   <properties>
+    <property name="image" value="blood"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>

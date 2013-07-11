@@ -49,6 +49,7 @@ update: function() {
     }
     if (me.input.isKeyPressed('jump'))
     {
+    		console.log(me.game.getEntityByName('BloodEntity')[0].show())
         if (!this.jumping && !this.falling)
         {
             // set current vel to the maximum defined value
@@ -216,5 +217,46 @@ game.EnemyEntity = me.ObjectEntity.extend({
             return true;
         }
         return false;
+    }
+});
+
+game.BloodEntity = me.ObjectEntity.extend({
+    init: function(x, y, settings) {
+
+   		settings.spritewidth = 100
+  		settings.spriteheight = 100
+  		settings.gravity = 0
+
+      this.parent(x, y, settings);
+  		this.renderable.alpha = 0
+    },
+    // manage the enemy movement
+    update: function() {
+        // do nothing if not in viewport
+        if (!this.inViewport)
+            return false;
+
+        this.parent();
+        // return true;
+    },
+
+    show: function () {
+    	var playerPosition = me.game.getEntityByName("mainPlayer")[0].pos
+    	, level = me.game.currentLevel
+    	, that = this
+
+      that.renderable.alpha = 1
+    	// level.width
+    	// level.height
+
+    	// Set position here
+    	this.pos.x = playerPosition.x - this.width / 2
+    	this.pos.y = playerPosition.y - this.height / 2
+      this.updateMovement();
+
+      setTimeout(function () {
+      	that.renderable.alpha = 0
+      	that.renderable.update()
+      }, 1000)
     }
 });
