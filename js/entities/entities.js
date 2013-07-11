@@ -18,7 +18,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    this.parent(x, y, settings);
 	 
 	    // set the walking & jumping speed
-	    this.setVelocity(3, 15);
+	    this.setVelocity(10, 20);
 	 
 	    // adjust the bounding box
 	    this.updateColRect(8, 30, -1, 0);
@@ -26,7 +26,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    // set the display to follow our position on both axis
 	    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
         this.collidable = true;
-            	me.audio.play("fearofthedark", true, null, 1);
+        me.audio.play("fearofthedark", true, null, 1);
 
 //me.entityPool.add("blood", game.BloodEntity, true);
 
@@ -58,7 +58,6 @@ update: function() {
     }
     if (me.input.isKeyPressed('jump'))
     {   
-	    console.log(me.game.getEntityByName('BloodEntity')[0].show())
         if (!this.jumping && !this.falling) 
         {
             // set current vel to the maximum defined value
@@ -260,6 +259,8 @@ game.EnemyEntity = me.ObjectEntity.extend({
         if (this.alive && (res.y > 0) && obj.falling) {
             this.renderable.flicker(45);
                         me.audio.play("duck",  false, null, 0.3);
+                        	    console.log(me.game.getEntityByName('BloodEntity')[0].show())
+
         }
     },
 
@@ -299,8 +300,8 @@ game.EnemyEntity = me.ObjectEntity.extend({
 game.BloodEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
 
-   		settings.spritewidth = 100
-  		settings.spriteheight = 100
+   		settings.spritewidth = 300
+  		settings.spriteheight = 300
   		settings.gravity = 0
 
       this.parent(x, y, settings);
@@ -326,13 +327,13 @@ game.BloodEntity = me.ObjectEntity.extend({
     	// level.height
 
     	// Set position here
-    	this.pos.x = playerPosition.x - this.width / 2
-    	this.pos.y = playerPosition.y - this.height / 2
+    	this.pos.x = playerPosition.x - this.width / 2 
+    	this.pos.y = playerPosition.y - this.height / 2 - 30
       this.updateMovement();
 
       setTimeout(function () {
       	that.renderable.alpha = 0
       	that.renderable.update()
-      }, 1000)
+      }, 300)
     }
 });
