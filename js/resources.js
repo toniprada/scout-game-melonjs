@@ -40,7 +40,8 @@ game.resources = [
 
 	// sounds
     {name: "duck", type: "audio", src: "data/sfx/", channel : 1},
-    {name: "child", type: "audio", src: "data/sfx/", channel : 2},
+    {name: "child", type: "audio", src: "data/sfx/", channel : 1},
+    {name: "fearofthedark", type: "audio", src: "data/sfx/", channel : 2},
 
     // the parallax background
     {name: "area01_bkg0",         type:"image", src: "data/img/area01_bkg0.png"},

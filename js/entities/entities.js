@@ -26,6 +26,8 @@ game.PlayerEntity = me.ObjectEntity.extend({
 	    // set the display to follow our position on both axis
 	    me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
         this.collidable = true;
+            	me.audio.play("fearofthedark", true, null, 1);
+
 //me.entityPool.add("blood", game.BloodEntity, true);
 
     },
@@ -89,7 +91,7 @@ update: function() {
             } else {
                 // let's flicker in case we touched an enemy
                 this.renderable.flicker(45);
-            	me.audio.play("child");
+            	me.audio.play("child", false, null, 0.1);
 
 				//lastBloodSplashTimestamp = new Date().getTime();
 				//showingBlood = true;
@@ -257,7 +259,7 @@ game.EnemyEntity = me.ObjectEntity.extend({
         // which mean at top position for this one
  		if (this.alive && (res.y > 0) && obj.falling) {
             this.renderable.flicker(45);
-            me.audio.play("duck");
+            me.audio.play("duck",  false, null, 0.3);
         }
     },
  
