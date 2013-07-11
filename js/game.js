@@ -9,7 +9,7 @@ var game = {
             alert("Your browser does not support HTML5 canvas.");
             return;
         }
-		
+
 		// add "#debug" to the URL to enable the debug Panel
 		if (document.location.hash === "#debug") {
 			window.onReady(function () {
@@ -22,7 +22,7 @@ var game = {
 
         // Set a callback to run when loading is complete.
         me.loader.onload = this.loaded.bind(this);
-     
+
         // Load the resources.
         me.loader.preload(game.resources);
 
@@ -41,8 +41,7 @@ var game = {
    me.entityPool.add("mainPlayer", game.PlayerEntity);
    me.entityPool.add("EnemyEntity", game.EnemyEntity);
    me.entityPool.add("torchlight", game.LightEntity);
-  // me.entityPool.add("blood", game.BloodEntity, true);
-//
+   me.entityPool.add("BloodEntity", game.BloodEntity);
 
    // enable the keyboard
    me.input.bindKey(me.input.KEY.LEFT,  "left");
