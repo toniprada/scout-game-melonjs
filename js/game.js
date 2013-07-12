@@ -34,21 +34,21 @@ var game = {
 
 	// Run on game resources loaded.
 	"loaded" : function () {
-   // set the "Play/Ingame" Screen Object
-   me.state.set(me.state.PLAY, new game.PlayScreen());
-	 
-   // add our player entity in the entity pool
-   me.entityPool.add("mainPlayer", game.PlayerEntity);
-   me.entityPool.add("EnemyEntity", game.EnemyEntity);
-   me.entityPool.add("torchlight", game.LightEntity);
-   me.entityPool.add("BloodEntity", game.BloodEntity);
+   // set the "Play/Ingame" Screen Object
+		me.state.set(me.state.PLAY, new game.PlayScreen());
+		 
+		// add our player entity in the entity pool
+		me.entityPool.add("mainPlayer", game.PlayerEntity);
+		me.entityPool.add("EnemyEntity", game.EnemyEntity);
+		me.entityPool.add("torchlight", game.LightEntity);
+		me.entityPool.add("BloodEntity", game.BloodEntity);
 
-   // enable the keyboard
-   me.input.bindKey(me.input.KEY.LEFT,  "left");
-   me.input.bindKey(me.input.KEY.RIGHT, "right");
-   me.input.bindKey(me.input.KEY.X,     "jump");
-	  
-   // start the game 
-   me.state.change(me.state.PLAY);
+		// enable the keyboard
+		me.input.bindKey(me.input.KEY.LEFT,  "left");
+		me.input.bindKey(me.input.KEY.RIGHT, "right");
+		me.input.bindKey(me.input.KEY.X,     "jump");
+		  
+		// start the game 
+		me.state.change(me.state.PLAY);
 	}
 };
