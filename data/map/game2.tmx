@@ -153,7 +153,7 @@
   </object>
  </objectgroup>
  <objectgroup name="enemies" width="86" height="61">
-  <object name="EnemyEntity" x="565" y="828" width="224" height="32">
+  <object name="EnemyEntity" x="546" y="826" width="224" height="32">
    <properties>
     <property name="image" value="duck"/>
     <property name="spritewidth" value="34"/>
@@ -163,6 +163,12 @@
    <properties>
     <property name="image" value="duck"/>
     <property name="spritewidth" value="34"/>
+   </properties>
+  </object>
+  <object name="EnemyEntity" x="606" y="999" width="133" height="34">
+   <properties>
+    <property name="image" value="cat"/>
+    <property name="spritewidth" value="31"/>
    </properties>
   </object>
  </objectgroup>
@@ -175,7 +181,7 @@
   </object>
  </objectgroup>
  <objectgroup name="blood" width="86" height="61">
-  <object name="BloodEntity" x="422" y="1022" width="318" height="280">
+  <object name="BloodEntity" x="422" y="1069" width="318" height="280">
    <properties>
     <property name="image" value="blood"/>
    </properties>

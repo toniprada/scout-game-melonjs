@@ -92,20 +92,19 @@ update: function() {
 				// let's flicker in case we touched an enemy
 				this.renderable.flicker(45);
 				me.audio.play("child", false, null, 0.1);
+				me.game.HUD.updateItemValue("life", -1);
 
 				//lastBloodSplashTimestamp = new Date().getTime();
 				//showingBlood = true;
 				//var blood = me.entityPool.newInstanceOf("blood");
 				//if (blood != undefined) {
 				//	me.game.remove(blood); 
-				//}
-					
+				//}					
 			}	
 				//me.entityPool.add("blood", game.BloodEntity);
 				//lastBloodSplashTimestamp = new Date().getTime();
 				//showingBlood = true;
 				//me.state.change(me.state.PLAY);
-
 		}
 	}
 
@@ -258,9 +257,18 @@ game.EnemyEntity = me.ObjectEntity.extend({
 		// which mean at top position for this one
 		if (this.alive && (res.y > 0) && obj.falling) {
 			this.renderable.flicker(45);
-						me.audio.play("duck",  false, null, 0.3);
-								console.log(me.game.getEntityByName('BloodEntity')[0].show())
-
+			console.log("enemy");
+			console.log(this);
+			if (this.height) {
+				if (this.height !=  34) {
+					me.audio.play("duck",  false, null, 0.3);
+				} else  {
+					me.audio.play("cat",  false, null, 0.3);
+				}
+			}
+			console.log(me.game.getEntityByName('BloodEntity')[0].show())
+			me.game.remove(this);
+			me.game.HUD.updateItemValue("score", 250);
 		}
 	},
 
@@ -327,8 +335,8 @@ game.BloodEntity = me.ObjectEntity.extend({
 		// level.height
 
 		// Set position here
-		this.pos.x = playerPosition.x - this.width / 2 
-		this.pos.y = playerPosition.y - this.height / 2 - 30
+		this.pos.x = playerPosition.x - this.width / 2 + 30
+		this.pos.y = playerPosition.y - this.height / 2 + 30
 	  this.updateMovement();
 
 	  setTimeout(function () {
@@ -336,4 +344,56 @@ game.BloodEntity = me.ObjectEntity.extend({
 		that.renderable.update()
 	  }, 300)
 	}
+});
+
+/*-------------- 
+a score HUD Item
+--------------------- */
+ 
+game.ScoreObject = me.HUD_Item.extend({
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+        this.font.set("right");
+    },
+ 
+    /* -----
+ 
+    draw our score
+ 
+    ------ */
+    draw: function(context, x, y) {
+        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
+    }
+ 
+});
+
+game.LifeObject = me.HUD_Item.extend({
+    init: function(x, y) {
+        // call the parent constructor
+        this.parent(x, y);
+        // create a font
+        this.font = new me.BitmapFont("32x32_font", 32);
+        this.font.set("right");
+       this.value = 100;
+    },
+ 
+    /* -----
+ 
+    draw our score
+ 
+    ------ */
+    draw: function(context, x, y) {
+        this.font.draw(context, this.value, this.pos.x + x, this.pos.y + y);
+        if (this.value <1 ) {
+    		console.log("DEAD");
+    				   me.state.change(me.state.GAME_OVER);
+
+
+    	}
+    },
+
+ 
 });

@@ -37,9 +37,12 @@ game.resources = [
 	{name: "light_mask", type:"image", src: "data/img/sprite/light_mask.png"},
 	{name: "duck", type:"image", src: "data/img/sprite/duck.png"},
 	{name: "blood", type:"image", src: "data/img/sprite/blood.png"},
+	{name: "title_screen", type:"image", src: "data/img/gui/menu.png"},
+	{name: "cat", type:"image", src: "data/img/sprite/cat.png"},
 
 	// sounds
 	{name: "duck", type: "audio", src: "data/sfx/", channel : 1},
+		{name: "cat", type: "audio", src: "data/sfx/", channel : 1},
 	{name: "child", type: "audio", src: "data/sfx/", channel : 1},
 	{name: "fearofthedark", type: "audio", src: "data/sfx/", channel : 2},
 
@@ -64,7 +67,8 @@ game.resources = [
 	{name: "mushrooms",         type:"image", src: "data/sprites/mushrooms.png"},
 	{name: "przejscieKoloru2",         type:"image", src: "data/sprites/moje/przejscieKoloru2.png"},
 
-
+	// game font
+	{name: "32x32_font", type: "image", src: "data/img/font/32x32_font.png"},
 	/* 
 	 * Maps. 
 	 */
