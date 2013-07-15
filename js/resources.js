@@ -41,6 +41,16 @@ game.resources = [
 	{name: "cat", type:"image", src: "data/img/sprite/cat.png"},
 
 	{name: "apple", type:"image", src: "data/img/collectible/apple.png"},
+	{name: "axe", type:"image", src: "data/img/collectible/axe.png"},
+	{name: "blanket", type:"image", src: "data/img/collectible/blanket.png"},
+	{name: "canteen", type:"image", src: "data/img/collectible/canteen.png"},
+	{name: "cherry", type:"image", src: "data/img/collectible/cherry.png"},
+	{name: "knife", type:"image", src: "data/img/collectible/knife.png"},
+	{name: "mushroom", type:"image", src: "data/img/collectible/mushroom.png"},
+	{name: "parachute", type:"image", src: "data/img/collectible/parachute.png"},
+	{name: "suncream", type:"image", src: "data/img/collectible/suncream.png"},
+	{name: "wood", type:"image", src: "data/img/collectible/wood.png"},
+
 	{name: "tent", type:"image", src: "data/img/collectible/tent.png"},
 
 	// sounds
@@ -63,7 +73,7 @@ game.resources = [
 	{name: "pubdlcnt",         type:"image", src: "data/sprites/pubdlcnt.png"},
 	{name: "drzewkabeztla",         type:"image", src: "data/sprites/moje/drzewkabeztla.png"},
 	{name: "Clouds_01_256x128_Set_03_01",         type:"image", src: "data/sprites/Clouds_01/Clouds_01_256x128_Set_03_01.png"},
-	{name: "Clouds_01_192x128_Set_01_07",         type:"image", src: "data/sprites//Clouds_01/Clouds_01_192x128_Set_01_07.png"},
+	{name: "Clouds_01_192x128_Set_01_07",         type:"image", src: "data/sprites/Clouds_01/Clouds_01_192x128_Set_01_07.png"},
 	{name: "niebieska",         type:"image", src: "data/sprites/Clouds_01/niebieska.png"},
 	{name: "rozowa",         type:"image", src: "data/sprites/Clouds_01/rozowa.png"},
 	{name: "przejscieKoloru",         type:"image", src: "data/sprites/moje/przejscieKoloru.png"},
