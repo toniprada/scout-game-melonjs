@@ -172,11 +172,15 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="light" width="86" height="61">
-  <object name="torchlight" x="482" y="1159" width="32" height="64">
+ <objectgroup name="entities" width="86" height="61">
+  <object name="CoinEntity" x="162" y="716" width="48" height="48">
    <properties>
-    <property name="" value=""/>
-    <property name="image" value="light_mask"/>
+    <property name="image" value="apple"/>
+   </properties>
+  </object>
+  <object name="TentEntity" x="284" y="940" width="100" height="46">
+   <properties>
+    <property name="image" value="tent"/>
    </properties>
   </object>
  </objectgroup>
@@ -184,6 +188,14 @@
   <object name="BloodEntity" x="422" y="1069" width="318" height="280">
    <properties>
     <property name="image" value="blood"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="light" width="86" height="61">
+  <object name="torchlight" x="482" y="1159" width="32" height="64">
+   <properties>
+    <property name="" value=""/>
+    <property name="image" value="light_mask"/>
    </properties>
   </object>
  </objectgroup>

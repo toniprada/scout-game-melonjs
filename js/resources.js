@@ -40,11 +40,16 @@ game.resources = [
 	{name: "title_screen", type:"image", src: "data/img/gui/menu.png"},
 	{name: "cat", type:"image", src: "data/img/sprite/cat.png"},
 
+	{name: "apple", type:"image", src: "data/img/collectible/apple.png"},
+	{name: "tent", type:"image", src: "data/img/collectible/tent.png"},
+
 	// sounds
 	{name: "duck", type: "audio", src: "data/sfx/", channel : 1},
 		{name: "cat", type: "audio", src: "data/sfx/", channel : 1},
 	{name: "child", type: "audio", src: "data/sfx/", channel : 1},
+		{name: "laugh", type: "audio", src: "data/sfx/", channel : 1},
 	{name: "fearofthedark", type: "audio", src: "data/sfx/", channel : 2},
+	{name: "blood", type: "audio", src: "data/sfx/", channel : 3},
 
 	// the parallax background
 	{name: "area01_bkg0",         type:"image", src: "data/img/area01_bkg0.png"},

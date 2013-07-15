@@ -2,6 +2,8 @@ var BLOOD_SPLASH_TIME_MS = 3000;
 var lastBloodSplashTimestamp = undefined;
 var showingBlood = false;
 
+score = 0;
+
 /*------------------- 
 a player entity
 -------------------------------- */
@@ -26,7 +28,7 @@ game.PlayerEntity = me.ObjectEntity.extend({
 		// set the display to follow our position on both axis
 		me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
 		this.collidable = true;
-		me.audio.play("fearofthedark", true, null, 1);
+		me.audio.play("fearofthedark", true, null, 0.5);
 
 //me.entityPool.add("blood", game.BloodEntity, true);
 
@@ -266,9 +268,12 @@ game.EnemyEntity = me.ObjectEntity.extend({
 					me.audio.play("cat",  false, null, 0.3);
 				}
 			}
+			me.audio.play("blood",  false, null, 1);
+
 			console.log(me.game.getEntityByName('BloodEntity')[0].show())
 			me.game.remove(this);
 			me.game.HUD.updateItemValue("score", 250);
+			score += 250;
 		}
 	},
 
@@ -395,5 +400,60 @@ game.LifeObject = me.HUD_Item.extend({
     	}
     },
 
+ 
+});
+
+/*----------------
+ a Coin entity
+------------------------ */
+game.CoinEntity = me.CollectableEntity.extend({
+    // extending the init function is not mandatory
+    // unless you need to add some extra initialization
+    init: function(x, y, settings) {
+        // call the parent constructor
+        this.parent(x, y, settings);
+    },
+ 
+    // this function is called by the engine, when
+    // an object is touched by something (here collected)
+    onCollision: function() {
+        // do something when collected
+ 		me.game.HUD.updateItemValue("score", 1000);
+ 		score += 1000;
+		me.audio.play("laugh",  false, null, 0.3);
+
+        // make sure it cannot be collected "again"
+        this.collidable = false;
+        // remove it
+        me.game.remove(this);
+    }
+ 
+});
+
+/*----------------
+ a Coin entity
+------------------------ */
+game.TentEntity = me.CollectableEntity.extend({
+    // extending the init function is not mandatory
+    // unless you need to add some extra initialization
+    init: function(x, y, settings) {
+        // call the parent constructor
+        this.parent(x, y, settings);
+    },
+ 
+    // this function is called by the engine, when
+    // an object is touched by something (here collected)
+    onCollision: function() {
+        // do something when collected
+ 		me.game.HUD.updateItemValue("score", 5000);
+ 		score += 5000;
+		me.audio.play("laugh",  false, null, 0.5);
+		me.state.change(me.state.GAME_OVER);
+
+        // make sure it cannot be collected "again"
+        this.collidable = false;
+        // remove it
+        //me.game.remove(this);
+    }
  
 });
